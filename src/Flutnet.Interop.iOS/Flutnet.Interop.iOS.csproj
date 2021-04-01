@@ -11,6 +11,9 @@
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>Flutnet.Interop</AssemblyName>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+    <!-- Flutter 2 switched to XCFrameworks, however Xamarin has limited support for them -->
+    <!-- Please follow this discussion on how to handle this new format: https://github.com/xamarin/xamarin-macios/issues/10774 -->
+    <NoBindingEmbedding>true</NoBindingEmbedding>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -59,13 +62,13 @@
     <ObjcBindingCoreSource Include="StructsAndEnums.cs" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' != 'Release' ">
-    <NativeReference Include="..\..\assets\xamarin-native-references\iOS\debug\Flutter.framework">
+    <NativeReference Include="..\..\assets\xamarin-native-references\iOS\debug\Flutter.xcframework">
       <Kind>Framework</Kind>
       <SmartLink>False</SmartLink>
     </NativeReference>
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
-    <NativeReference Include="..\..\assets\xamarin-native-references\iOS\release\Flutter.framework">
+    <NativeReference Include="..\..\assets\xamarin-native-references\iOS\release\Flutter.xcframework">
       <Kind>Framework</Kind>
       <SmartLink>False</SmartLink>
     </NativeReference>

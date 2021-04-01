@@ -217,17 +217,25 @@ namespace FlutterSync
 
                     Console.WriteLine("Copying iOS frameworks into destination folder...");
 
-                    string appFrameworkDebug = project.GetIosFrameworkPath(FlutterModuleBuildConfig.Debug);
-                    string flutterFrameworkDebug = appFrameworkDebug.Replace("App.framework", "Flutter.framework", StringComparison.InvariantCultureIgnoreCase);
+                    bool xcframework = !version.Version.StartsWith("1");
+                    string appFrameworkName = xcframework ? "App.xcframework" : "App.framework";
+                    string flutterFrameworkName = xcframework ? "Flutter.xcframework" : "Flutter.framework";
+
+                    string appFrameworkDebug = xcframework
+                        ? project.GetIosXCFrameworkPath(FlutterModuleBuildConfig.Debug)
+                        : project.GetIosFrameworkPath(FlutterModuleBuildConfig.Debug);
+                    string flutterFrameworkDebug = appFrameworkDebug.Replace(appFrameworkName, flutterFrameworkName, StringComparison.InvariantCultureIgnoreCase);
                     DirectoryInfo flutterFrameworkDebugDir = new DirectoryInfo(flutterFrameworkDebug);
-                    DirectoryInfo flutterFrameworkOutputDebugDir = new DirectoryInfo(Path.Combine(targetFolderIosDebug, "Flutter.framework"));
+                    DirectoryInfo flutterFrameworkOutputDebugDir = new DirectoryInfo(Path.Combine(targetFolderIosDebug, flutterFrameworkName));
                     flutterFrameworkOutputDebugDir.Create();
                     CopyAll(flutterFrameworkDebugDir, flutterFrameworkOutputDebugDir);
 
-                    string appFrameworkRelease = project.GetIosFrameworkPath(FlutterModuleBuildConfig.Release);
-                    string flutterFrameworkRelease = appFrameworkRelease.Replace("App.framework", "Flutter.framework", StringComparison.InvariantCultureIgnoreCase);
+                    string appFrameworkRelease = xcframework
+                        ? project.GetIosXCFrameworkPath(FlutterModuleBuildConfig.Release)
+                        : project.GetIosFrameworkPath(FlutterModuleBuildConfig.Release);
+                    string flutterFrameworkRelease = appFrameworkRelease.Replace(appFrameworkName, flutterFrameworkName, StringComparison.InvariantCultureIgnoreCase);
                     DirectoryInfo flutterFrameworkReleaseDir = new DirectoryInfo(flutterFrameworkRelease);
-                    DirectoryInfo flutterFrameworkOutputReleaseDir = new DirectoryInfo(Path.Combine(targetFolderIosRelease, "Flutter.framework"));
+                    DirectoryInfo flutterFrameworkOutputReleaseDir = new DirectoryInfo(Path.Combine(targetFolderIosRelease, flutterFrameworkName));
                     flutterFrameworkOutputReleaseDir.Create();
                     CopyAll(flutterFrameworkReleaseDir, flutterFrameworkOutputReleaseDir);
 

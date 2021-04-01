@@ -63,7 +63,24 @@ namespace FlutterSync
         }
 
         /// <summary>
-        /// Returns the path of the iOS framework created when building a Flutter module
+        /// Returns the path of the iOS XCFramework created when building a Flutter 2.* module
+        /// and used for integrating Flutter into a native iOS app.
+        /// </summary>
+        public string GetIosXCFrameworkPath(FlutterModuleBuildConfig buildConfig)
+        {
+            Load();
+            switch (Type)
+            {
+                case DartProjectType.Module:
+                    return GetIosXCFrameworkPath(_workingDir.FullName, _pubspecDocument, buildConfig);
+                default:
+                    throw new InvalidOperationException("This method is designed for Flutter modules only.");
+            }
+
+        }
+
+        /// <summary>
+        /// Returns the path of the iOS Framework created when building a Flutter 1.* module
         /// and used for integrating Flutter into a native iOS app.
         /// </summary>
         public string GetIosFrameworkPath(FlutterModuleBuildConfig buildConfig)
@@ -356,21 +373,39 @@ namespace FlutterSync
         }
 
         /// <summary>
-        /// Returns the path of the iOS framework created when building a Flutter module.
+        /// Returns the path of the iOS XCFramework created when building a Flutter 2.* module with Flutter.
+        /// </summary>
+        public static string GetIosXCFrameworkPath(string flutterFolder, YamlDocument pubspecFile, FlutterModuleBuildConfig buildConfig)
+        {
+            return GetIosFrameworkPathCore(flutterFolder, pubspecFile, buildConfig, true);
+        }
+
+        /// <summary>
+        /// Returns the path of the iOS Framework created when building a Flutter 1.* module with Flutter.
         /// </summary>
         public static string GetIosFrameworkPath(string flutterFolder, YamlDocument pubspecFile, FlutterModuleBuildConfig buildConfig)
+        {
+            return GetIosFrameworkPathCore(flutterFolder, pubspecFile, buildConfig, false);
+        }
+
+        private static string GetIosFrameworkPathCore(string flutterFolder, YamlDocument pubspecFile, FlutterModuleBuildConfig buildConfig, bool xcframework)
         {
             // Please consider a Flutter module created with the following command:
             //
             // flutter create -t module --org com.example hello_world
             //
-            // Now, build the module for Android integration:
+            // Now, build the module for iOS integration:
             //
             // flutter build ios-framework
             //
             // The output framework for Debug configuration is located under:
             //
-            // <MODULE_FOLDER>\build\ios\Debug\App.framework
+            // <MODULE_FOLDER>\build\ios\Debug\App.xcframework (Flutter 2.*)
+            //
+            // or
+            //
+            // <MODULE_FOLDER>\build\ios\Debug\App.framework   (Flutter 1.*)
+
 
             // <MODULE_FOLDER>\build\ios\framework\
             string frameworkRootFolder = Path.Combine(flutterFolder, "build", "ios", "framework");
@@ -395,12 +430,10 @@ namespace FlutterSync
             }
 
             // <MODULE_FOLDER>\build\ios\Debug\App.framework
-            string path = Path.Combine(frameworkRootFolder, build, "App.framework");
+            string path = Path.Combine(frameworkRootFolder, build, xcframework ? "App.xcframework" : "App.framework");
             return path;
         }
 
         #endregion
     }
-
-
 }

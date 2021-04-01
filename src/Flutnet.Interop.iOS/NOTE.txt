@@ -57,3 +57,10 @@ La versione 3.5.38 (l'ultima disponibile al 07/10/2020) supporta Xcode 12 / iOS 
 per la generazione automatica dei file ApiDefinitions.cs e StructsAndEnums.cs lanciare il comando:
 
 sharpie bind --output=<path_to_folder> --namespace=Flutnet.Interop --sdk=iphoneos14.0 Flutter.framework/Headers/Flutter.h -scope Flutter.framework/Headers -c -xobjective-c F .
+
+La versione 3.5.41 (l'ultima disponibile al 01/04/2021) supporta Xcode 12.3 / iOS 14.3, quindi
+per la generazione automatica dei file ApiDefinitions.cs e StructsAndEnums.cs lanciare il comando:
+
+sharpie bind --output=<path_to_folder> --namespace=Flutnet.Interop --sdk=iphoneos14.3 Flutter.framework/Headers/Flutter.h -scope Flutter.framework/Headers -c -xobjective-c F .
+
+sharpie bind --output=cs --namespace=Flutnet.Interop --sdk=iphoneos14.3 Flutter.framework/Headers/Flutter.h -scope Flutter.framework/Headers -c -xobjective-c F .
