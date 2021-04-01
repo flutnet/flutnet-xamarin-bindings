@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Flutnet.Interop.Java8</id>
+    <version>2.2.0</version>
+    <title>Flutnet.Interop.Java8</title>
+    <authors>Novagem Solutions S.r.l.</authors>
+    <owners></owners>
+    <projectUrl>https://www.flutnet.com</projectUrl>
+    <license type="file">LICENSE.md</license>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Xamarin.Android bindings for Android Support Library - lifecycle common for Java 8 Language</description>
+    <releaseNotes>First release</releaseNotes>
+    <copyright>Copyright © Novagem Solutions Srl 2020-2021</copyright>
+    <tags>Flutnet Xamarin Android Xamarin.Android Java8</tags>
+    <icon>images\icon.png</icon>
+    <dependencies>
+      <group targetFramework="MonoAndroid">
+        <dependency id="Xamarin.AndroidX.Lifecycle.Common" version="2.2.0" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin/Release/Flutnet.Interop.Java8.dll" target="lib/MonoAndroid/Flutnet.Interop.Java8.dll" />
+    <!-- TODO
+    <file src="../../../doc/licenses/Flutnet - License Agreement.md" target="LICENSE.md" />
+    <file src="../../../doc/licenses/Flutnet - Third Party Software Notices.md" target="NOTICE.md" />
+    <file src="../../../doc/licenses/Flutnet - Community License Agreement.md" target="LICENSE.Community.md" />
+    <file src="../../../res/logo/flutnet_logo_128x128_trasp.png" target="images/icon.png" />
+    -->
+  </files>
+</package>

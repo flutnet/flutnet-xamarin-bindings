@@ -7,14 +7,14 @@ namespace FlutterSync
 {
     internal class FlutterSync
     {
-        static readonly string DefaultOutputDirectory;
+        static readonly string DefaultTargetDirectory;
         static readonly string DefaultGradleCacheDirectory;
 
         static FlutterSync()
         {
             // NOTE: We suppose that the program executable is located under <repository root>/tools
             //       while the native references will be stored under <repository root>/assets/xamarin-native-references
-            DefaultOutputDirectory = "../assets/xamarin-native-references";
+            DefaultTargetDirectory = "../assets/xamarin-native-references";
             DefaultGradleCacheDirectory = OperatingSystem.IsMacOS() 
                     ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), ".gradle", "caches", "modules-2", "files-2.1", "io.flutter") 
                     : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".gradle", "caches", "modules-2", "files-2.1", "io.flutter");
@@ -28,19 +28,19 @@ namespace FlutterSync
                 return ReturnCodes.Success;
             }
 
-            string outputFolder = !string.IsNullOrEmpty(options.OutputDirectory)
-                ? Path.GetFullPath(options.OutputDirectory)
-                : DefaultOutputDirectory;
+            string targetFolder = !string.IsNullOrEmpty(options.TargetDirectory)
+                ? Path.GetFullPath(options.TargetDirectory)
+                : DefaultTargetDirectory;
 
-            string outputFolderAndroid = Path.Combine(outputFolder, "Android");
-            string outputFolderAndroidDebug = Path.Combine(outputFolderAndroid, "debug");
-            string outputFolderAndroidRelease = Path.Combine(outputFolderAndroid, "release");
+            string targetFolderAndroid = Path.Combine(targetFolder, "Android");
+            string targetFolderAndroidDebug = Path.Combine(targetFolderAndroid, "debug");
+            string targetFolderAndroidRelease = Path.Combine(targetFolderAndroid, "release");
 
-            string tmpOutputAndroidOfficial = Path.Combine(outputFolderAndroid, "official_repo");
+            string tmpTargetAndroidOfficial = Path.Combine(targetFolderAndroid, "official_repo");
 
-            string outputFolderIos = Path.Combine(outputFolder, "iOS");
-            string outputFolderIosDebug = Path.Combine(outputFolderIos, "debug");
-            string outputFolderIosRelease = Path.Combine(outputFolderIos, "release");
+            string targetFolderIos = Path.Combine(targetFolder, "iOS");
+            string targetFolderIosDebug = Path.Combine(targetFolderIos, "debug");
+            string targetFolderIosRelease = Path.Combine(targetFolderIos, "release");
 
             string gradleCacheFolder = !string.IsNullOrEmpty(options.GradleCacheDirectory)
                 ? Path.GetFullPath(options.GradleCacheDirectory)
@@ -66,17 +66,17 @@ namespace FlutterSync
                     FlutterTools.BuildAndroidArchive(tmpModulePath, FlutterModuleBuildConfig.Debug | FlutterModuleBuildConfig.Release);
                     Console.WriteLine("Done.");
 
-                    if (Directory.Exists(outputFolderAndroid))
-                        Directory.Delete(outputFolderAndroid, true);
-                    Directory.CreateDirectory(outputFolderAndroidDebug);
-                    Directory.CreateDirectory(outputFolderAndroidRelease);
+                    if (Directory.Exists(targetFolderAndroid))
+                        Directory.Delete(targetFolderAndroid, true);
+                    Directory.CreateDirectory(targetFolderAndroidDebug);
+                    Directory.CreateDirectory(targetFolderAndroidRelease);
 
                     // NOTE: The JARs / AARs found in the Gradle cache folder must be manipulated
                     //       in order for them to be embedded into a Xamarin bindings library
 
                     Console.WriteLine("Copying Android archives into destination folder...");
 
-                    Directory.CreateDirectory(tmpOutputAndroidOfficial);
+                    Directory.CreateDirectory(tmpTargetAndroidOfficial);
                     DirectoryInfo gradleCacheDir = new DirectoryInfo(gradleCacheFolder);
                     foreach (var gradleCacheArchDir in gradleCacheDir.EnumerateDirectories()
                         .Where(di => !di.Name.Contains("profile", StringComparison.OrdinalIgnoreCase)))
@@ -93,7 +93,7 @@ namespace FlutterSync
                                 !string.Equals(file.Extension, ".aar", StringComparison.InvariantCultureIgnoreCase))
                                 continue;
 
-                            file.CopyTo(Path.Combine(tmpOutputAndroidOfficial, file.Name));
+                            file.CopyTo(Path.Combine(tmpTargetAndroidOfficial, file.Name));
                         }
                     }
 
@@ -101,12 +101,12 @@ namespace FlutterSync
 
                     Console.WriteLine("Configuring Android archives for Xamarin bindings...");
 
-                    foreach (string filename in Directory.EnumerateFiles(tmpOutputAndroidOfficial, "*_debug-*.jar"))
+                    foreach (string filename in Directory.EnumerateFiles(tmpTargetAndroidOfficial, "*_debug-*.jar"))
                     {
                         FileInfo fi = new FileInfo(filename);
                         if (fi.Name.StartsWith("flutter_embedding"))
                         {
-                            fi.CopyTo(Path.Combine(outputFolderAndroidDebug, "flutter_embedding.jar"));
+                            fi.CopyTo(Path.Combine(targetFolderAndroidDebug, "flutter_embedding.jar"));
                         }
                         else
                         {
@@ -116,7 +116,7 @@ namespace FlutterSync
                             // armeabi_v7a must become armeabi-v7a
                             // x86_64 must not change
                             string arch = fi.Name.Substring(0, index).Replace("_v", "-v");
-                            string libFolder = Path.Combine(outputFolderAndroidDebug, "lib", arch);
+                            string libFolder = Path.Combine(targetFolderAndroidDebug, "lib", arch);
                             Directory.CreateDirectory(libFolder);
 
                             using (ZipInputStream stream = new ZipInputStream(fi.OpenRead()))
@@ -151,12 +151,12 @@ namespace FlutterSync
                         }
                     }
 
-                    foreach (string filename in Directory.EnumerateFiles(tmpOutputAndroidOfficial, "*_release-*.jar"))
+                    foreach (string filename in Directory.EnumerateFiles(tmpTargetAndroidOfficial, "*_release-*.jar"))
                     {
                         FileInfo fi = new FileInfo(filename);
                         if (fi.Name.StartsWith("flutter_embedding"))
                         {
-                            fi.CopyTo(Path.Combine(outputFolderAndroidRelease, "flutter_embedding.jar"));
+                            fi.CopyTo(Path.Combine(targetFolderAndroidRelease, "flutter_embedding.jar"));
                         }
                         else
                         {
@@ -166,7 +166,7 @@ namespace FlutterSync
                             // armeabi_v7a must become armeabi-v7a
                             // x86_64 must not change
                             string arch = fi.Name.Substring(0, index).Replace("_v", "-v");
-                            string libFolder = Path.Combine(outputFolderAndroidRelease, "lib", arch);
+                            string libFolder = Path.Combine(targetFolderAndroidRelease, "lib", arch);
                             Directory.CreateDirectory(libFolder);
 
                             using (ZipInputStream stream = new ZipInputStream(fi.OpenRead()))
@@ -210,24 +210,24 @@ namespace FlutterSync
                     FlutterTools.BuildIosFramework(tmpModulePath, FlutterModuleBuildConfig.Debug | FlutterModuleBuildConfig.Release);
                     Console.WriteLine("Done.");
 
-                    if (Directory.Exists(outputFolderIos))
-                        Directory.Delete(outputFolderIos, true);
-                    Directory.CreateDirectory(outputFolderIosDebug);
-                    Directory.CreateDirectory(outputFolderIosRelease);
+                    if (Directory.Exists(targetFolderIos))
+                        Directory.Delete(targetFolderIos, true);
+                    Directory.CreateDirectory(targetFolderIosDebug);
+                    Directory.CreateDirectory(targetFolderIosRelease);
 
                     Console.WriteLine("Copying iOS frameworks into destination folder...");
 
                     string appFrameworkDebug = project.GetIosFrameworkPath(FlutterModuleBuildConfig.Debug);
                     string flutterFrameworkDebug = appFrameworkDebug.Replace("App.framework", "Flutter.framework", StringComparison.InvariantCultureIgnoreCase);
                     DirectoryInfo flutterFrameworkDebugDir = new DirectoryInfo(flutterFrameworkDebug);
-                    DirectoryInfo flutterFrameworkOutputDebugDir = new DirectoryInfo(Path.Combine(outputFolderIosDebug, "Flutter.framework"));
+                    DirectoryInfo flutterFrameworkOutputDebugDir = new DirectoryInfo(Path.Combine(targetFolderIosDebug, "Flutter.framework"));
                     flutterFrameworkOutputDebugDir.Create();
                     CopyAll(flutterFrameworkDebugDir, flutterFrameworkOutputDebugDir);
 
                     string appFrameworkRelease = project.GetIosFrameworkPath(FlutterModuleBuildConfig.Release);
                     string flutterFrameworkRelease = appFrameworkRelease.Replace("App.framework", "Flutter.framework", StringComparison.InvariantCultureIgnoreCase);
                     DirectoryInfo flutterFrameworkReleaseDir = new DirectoryInfo(flutterFrameworkRelease);
-                    DirectoryInfo flutterFrameworkOutputReleaseDir = new DirectoryInfo(Path.Combine(outputFolderIosRelease, "Flutter.framework"));
+                    DirectoryInfo flutterFrameworkOutputReleaseDir = new DirectoryInfo(Path.Combine(targetFolderIosRelease, "Flutter.framework"));
                     flutterFrameworkOutputReleaseDir.Create();
                     CopyAll(flutterFrameworkReleaseDir, flutterFrameworkOutputReleaseDir);
 
@@ -246,8 +246,8 @@ namespace FlutterSync
                 Console.WriteLine("Clearing temporary files...");
                 if (Directory.Exists(tmpModulePath))
                     Directory.Delete(tmpModulePath, true);
-                if (Directory.Exists(tmpOutputAndroidOfficial))
-                    Directory.Delete(tmpOutputAndroidOfficial, true);
+                if (Directory.Exists(tmpTargetAndroidOfficial))
+                    Directory.Delete(tmpTargetAndroidOfficial, true);
                 Console.WriteLine("Done.");
             }
         }

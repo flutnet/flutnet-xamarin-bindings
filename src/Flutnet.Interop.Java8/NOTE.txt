@@ -1,0 +1,8 @@
+﻿The purpose of this Java bindings library is to embed the "Android Lifecycle Common For Java 8 Language" (v1.1.1) .JAR package.
+
+https://mvnrepository.com/artifact/android.arch.lifecycle/common-java8/1.1.1
+https://maven.google.com/android/arch/lifecycle/common-java8/1.1.1/common-java8-1.1.1.jar
+
+This way, a Xamarin.Android app that references this library can access the content of the package at run-time.
+This package is required, for example, by the new Flutter Embedding APIs (Flutter v1.9.1 onwards).
+The Flutter Embedding APIs are available in C# through the "Flutnet.Interop.Android" library.

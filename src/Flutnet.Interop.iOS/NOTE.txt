@@ -1,0 +1,59 @@
+﻿Risultati delle prove di utilizzo di Objective Sharpie per la generazione automatica dei file ApiDefinitions.cs e StructsAndEnums.cs
+(NOTA: tutti i comandi sono stati lanciati dopo essersi posizionati nella cartella src/basic_flutter_module_macos/build/ios/frmework/<configuration>/)
+
+
+[KO :(] sharpie bind con solo parametro -framework
+
+sharpie bind --output=<path_to_folder> --namespace=Flutter --sdk=iphoneos13.2 -framework Flutter.framework
+
+
+[KO :(] sharpie bind esplicitando il parametro -framework come indicato qui: https://docs.microsoft.com/en-us/xamarin/cross-platform/macios/binding/objective-sharpie/platform/native-frameworks
+
+sharpie bind --output=<path_to_folder> --namespace=Flutter --sdk=iphoneos13.2 Flutter.framework/Headers/Flutter.h -scope Flutter.framework/Headers -c -F .
+
+
+[OK :)] sharpie bind esplicitando il parametro -xobjective-c RIGOROSAMENTE DOPO il parametro -c
+
+sharpie bind --output=<path_to_folder> --namespace=Flutter --sdk=iphoneos13.2 Flutter.framework/Headers/Flutter.h -scope Flutter.framework/Headers -c -xobjective-c F .
+
+
+Nella cartella specificata da <path_to_folder> Objective Shapie genera i file ApiDefinitions.cs e StructsAndEnums.cs, sovrascrivendo eventuali file già presenti.
+
+I file prodotti devono essere SEMPRE rivisti, prima di tutto per sistemare tutte le definizioni decorate con attributo Verify 
+(consultare il link seguente per ulteriori info: https://docs.microsoft.com/it-it/xamarin/cross-platform/macios/binding/objective-sharpie/platform/verify),
+quindi per correggere alcune definizioni che producono errori in fase di compilazione della libreria binding (ovvero in fase di generazione della classi "wrapper" in C#).
+
+
+<path_to_folder> = /Users/main/Desktop/Flutter_Framework
+
+
+
+=== NOTE ===
+
+Il warning seguente in fase di compilazione:
+
+/Library/Frameworks/Mono.framework/Versions/6.4.0/lib/mono/msbuild/Current/bin/Microsoft.Common.CurrentVersion.targets(5,5): Warning MSB9004: ManifestResourceWithNoCulture item type is deprecated. Emit EmbeddedResource items instead, with metadata WithCulture='false', Type='Resx', and optional LogicalName. (MSB9004) (Flutter.Framework)
+
+è legato a quanto segnalato qui:
+
+https://github.com/xamarin/xamarin-macios/issues/3876
+
+
+
+=== Objective Sharpie ===
+
+Link per il download dell'ultima versione disponibile:
+
+http://aka.ms/objective-sharpie
+
+Comando da lanciare periodicamente alla ricerca di aggiornamenti:
+
+sharpie update
+
+Objective Sharpie viene installato, di default, sotto: /Library/Frameworks/ObjectiveSharpie.framework
+Il comando "sharpie" viene installato sotto: /usr/local/bin/sharpie
+
+La versione 3.5.38 (l'ultima disponibile al 07/10/2020) supporta Xcode 12 / iOS 14, quindi
+per la generazione automatica dei file ApiDefinitions.cs e StructsAndEnums.cs lanciare il comando:
+
+sharpie bind --output=<path_to_folder> --namespace=Flutnet.Interop --sdk=iphoneos14.0 Flutter.framework/Headers/Flutter.h -scope Flutter.framework/Headers -c -xobjective-c F .
