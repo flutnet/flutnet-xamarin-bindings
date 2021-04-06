@@ -10,4 +10,20 @@
       <HintPath>$(MSBuildThisFileDirectory)..\lib\Xamarin.iOS10\Release\Flutnet.Interop.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <!--
+    <Content Include="$(MSBuildThisFileDirectory)\..\content/NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    -->
+    <None Include="$(MSBuildThisFileDirectory)..\content\Debug\Flutnet.Interop.resources\**" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
+    <!--
+    <Content Include="$(MSBuildThisFileDirectory)\..\content/NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    -->
+    <None Include="$(MSBuildThisFileDirectory)..\content\Release\Flutnet.Interop.resources\**" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>

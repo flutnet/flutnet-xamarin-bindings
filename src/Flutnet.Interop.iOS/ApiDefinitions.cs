@@ -925,7 +925,7 @@ namespace Flutnet.Interop
 
         // -(BOOL)runWithEntrypoint:(NSString * _Nullable)entrypoint libraryURI:(NSString * _Nullable)uri;
         [Export("runWithEntrypoint:libraryURI:")]
-        bool Run([NullAllowed] string entrypoint, [NullAllowed] string uri);
+        bool RunWithUri([NullAllowed] string entrypoint, [NullAllowed] string uri);
 
         // -(void)destroyContext;
         [Export("destroyContext")]
