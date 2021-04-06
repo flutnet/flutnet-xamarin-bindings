@@ -129,8 +129,8 @@ namespace Flutnet.Interop
 
         // -(void)writeBytes:(const void * _Nonnull)bytes length:(NSUInteger)length;
         [Export("writeBytes:length:")]
-        //NOTE: Verificare la correttezza di quanto fatto
-        //Objective Sharpie output: unsafe void WriteBytes(void* bytes, nuint length);
+        //NOTE: Is this correct? Objective Sharpie output was:
+        //unsafe void WriteBytes(void* bytes, nuint length);
         void WriteBytes(IntPtr bytes, nuint length);
 
         // -(void)writeData:(NSData * _Nonnull)data;
@@ -172,8 +172,8 @@ namespace Flutnet.Interop
 
         // -(void)readBytes:(void * _Nonnull)destination length:(NSUInteger)length;
         [Export("readBytes:length:")]
-        //NOTE: Verificare la correttezza di quanto fatto
-        //unsafe void ReadBytes(void* destination, nuint length);
+        //NOTE: Is this correct? Objective Sharpie output was:
+        //ReadBytes(void* destination, nuint length);
         void ReadBytes(IntPtr destination, nuint length);
 
         // -(NSData * _Nonnull)readData:(NSUInteger)length;
@@ -699,8 +699,8 @@ namespace Flutnet.Interop
         // @optional +(void)setPluginRegistrantCallback:(FlutterPluginRegistrantCallback _Nonnull)callback;
         [Static]
         [Export("setPluginRegistrantCallback:")]
-        //NOTE: Verificare la correttezza di quanto fatto
-        //Objective Sharpie output: unsafe void SetPluginRegistrantCallback(FlutterPluginRegistrantCallback* callback);
+        //NOTE: Is this correct? Objective Sharpie output was:
+        //unsafe void SetPluginRegistrantCallback(FlutterPluginRegistrantCallback* callback);
         void SetPluginRegistrantCallback(FlutterPluginRegistrantCallback callback);
 
         // @optional -(void)handleMethodCall:(FlutterMethodCall * _Nonnull)call result:(FlutterResult _Nonnull)result;
@@ -902,10 +902,14 @@ namespace Flutnet.Interop
         [Export("initWithName:project:")]
         IntPtr Constructor(string labelPrefix, [NullAllowed] FlutterDartProject project);
 
-        // -(instancetype _Nonnull)initWithName:(NSString * _Nonnull)labelPrefix project:(FlutterDartProject * _Nullable)project allowHeadlessExecution:(BOOL)allowHeadlessExecution __attribute__((objc_designated_initializer));
-        [Export("initWithName:project:allowHeadlessExecution:")]
-        [DesignatedInitializer]
+        // -(instancetype _Nonnull)initWithName:(NSString * _Nonnull)labelPrefix project:(FlutterDartProject * _Nullable)project allowHeadlessExecution:(BOOL)allowHeadlessExecution;
+        [Export ("initWithName:project:allowHeadlessExecution:")]
         IntPtr Constructor(string labelPrefix, [NullAllowed] FlutterDartProject project, bool allowHeadlessExecution);
+
+        // -(instancetype _Nonnull)initWithName:(NSString * _Nonnull)labelPrefix project:(FlutterDartProject * _Nullable)project allowHeadlessExecution:(BOOL)allowHeadlessExecution restorationEnabled:(BOOL)restorationEnabled __attribute__((objc_designated_initializer));
+        [Export ("initWithName:project:allowHeadlessExecution:restorationEnabled:")]
+        [DesignatedInitializer]
+        IntPtr Constructor(string labelPrefix, [NullAllowed] FlutterDartProject project, bool allowHeadlessExecution, bool restorationEnabled);
 
         // -(BOOL)run;
         [Export("run")]
@@ -915,9 +919,13 @@ namespace Flutnet.Interop
         [Export("runWithEntrypoint:")]
         bool Run([NullAllowed] string entrypoint);
 
+        // -(BOOL)runWithEntrypoint:(NSString * _Nullable)entrypoint initialRoute:(NSString * _Nullable)initialRoute;
+        [Export ("runWithEntrypoint:initialRoute:")]
+        bool Run([NullAllowed] string entrypoint, [NullAllowed] string initialRoute);
+
         // -(BOOL)runWithEntrypoint:(NSString * _Nullable)entrypoint libraryURI:(NSString * _Nullable)uri;
         [Export("runWithEntrypoint:libraryURI:")]
-        bool Run([NullAllowed] string entrypoint, [NullAllowed] string uri);
+        bool RunWithUri([NullAllowed] string entrypoint, [NullAllowed] string uri);
 
         // -(void)destroyContext;
         [Export("destroyContext")]
@@ -939,6 +947,10 @@ namespace Flutnet.Interop
         [Export("navigationChannel")]
         FlutterMethodChannel NavigationChannel { get; }
 
+        // @property (readonly, nonatomic) FlutterMethodChannel * _Nonnull restorationChannel;
+        [Export ("restorationChannel")]
+        FlutterMethodChannel RestorationChannel { get; }
+
         // @property (readonly, nonatomic) FlutterMethodChannel * _Nonnull platformChannel;
         [Export("platformChannel")]
         FlutterMethodChannel PlatformChannel { get; }
@@ -959,6 +971,10 @@ namespace Flutnet.Interop
         [Export("settingsChannel")]
         FlutterBasicMessageChannel SettingsChannel { get; }
 
+        // @property (readonly, nonatomic) FlutterBasicMessageChannel * _Nonnull keyEventChannel;
+        [Export ("keyEventChannel")]
+        FlutterBasicMessageChannel KeyEventChannel { get; }
+
         // @property (readonly, nonatomic) NSURL * _Nullable observatoryUrl;
         [NullAllowed, Export("observatoryUrl")]
         NSUrl ObservatoryUrl { get; }
@@ -976,6 +992,21 @@ namespace Flutnet.Interop
         bool IsGpuDisabled { get; set; }
     }
 
+    // @interface FlutterEngineGroup : NSObject
+    [BaseType (typeof(NSObject))]
+    [DisableDefaultCtor]
+    interface FlutterEngineGroup
+    {
+        // -(instancetype _Nonnull)initWithName:(NSString * _Nonnull)name project:(FlutterDartProject * _Nullable)project __attribute__((objc_designated_initializer));
+        [Export ("initWithName:project:")]
+        [DesignatedInitializer]
+        IntPtr Constructor(string name, [NullAllowed] FlutterDartProject project);
+
+        // -(FlutterEngine * _Nonnull)makeEngineWithEntrypoint:(NSString * _Nullable)entrypoint libraryURI:(NSString * _Nullable)libraryURI;
+        [Export ("makeEngineWithEntrypoint:libraryURI:")]
+        FlutterEngine MakeEngine([NullAllowed] string entrypoint, [NullAllowed] string libraryURI);
+    }
+
     // typedef void (^FlutterHeadlessDartRunnerCallback)(BOOL);
     delegate void FlutterHeadlessDartRunnerCallback(bool callback);
 
@@ -987,10 +1018,14 @@ namespace Flutnet.Interop
         [Export("initWithName:project:")]
         IntPtr Constructor(string labelPrefix, FlutterDartProject projectOrNil);
 
-        // -(instancetype)initWithName:(NSString *)labelPrefix project:(FlutterDartProject *)projectOrNil allowHeadlessExecution:(BOOL)allowHeadlessExecution __attribute__((objc_designated_initializer));
-        [Export("initWithName:project:allowHeadlessExecution:")]
-        [DesignatedInitializer]
+        // -(instancetype)initWithName:(NSString *)labelPrefix project:(FlutterDartProject *)projectOrNil allowHeadlessExecution:(BOOL)allowHeadlessExecution;
+        [Export ("initWithName:project:allowHeadlessExecution:")]
         IntPtr Constructor(string labelPrefix, FlutterDartProject projectOrNil, bool allowHeadlessExecution);
+
+        // -(instancetype)initWithName:(NSString *)labelPrefix project:(FlutterDartProject *)projectOrNil allowHeadlessExecution:(BOOL)allowHeadlessExecution restorationEnabled:(BOOL)restorationEnabled __attribute__((objc_designated_initializer));
+        [Export ("initWithName:project:allowHeadlessExecution:restorationEnabled:")]
+        [DesignatedInitializer]
+        IntPtr Constructor(string labelPrefix, FlutterDartProject projectOrNil, bool allowHeadlessExecution, bool restorationEnabled);
     }
 
     // @interface FlutterPluginAppLifeCycleDelegate : NSObject <UNUserNotificationCenterDelegate>
