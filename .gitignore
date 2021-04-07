@@ -11,8 +11,8 @@
 *.userprefs
 
 # Visual Studio and VS Code
-/.vs/
-/.vscode/
+.vs/
+.vscode/
 .ionide/
 
 # Build results
@@ -107,4 +107,5 @@ $RECYCLE.BIN/
 packages/
 
 # artifacts
-/toolsSrc/FlutterSync/Properties/launchSettings.json
+artifacts/
+toolsSrc/FlutterSync/Properties/launchSettings.json

@@ -10,20 +10,17 @@
       <HintPath>$(MSBuildThisFileDirectory)..\lib\Xamarin.iOS10\Release\Flutnet.Interop.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-    <!--
-    <Content Include="$(MSBuildThisFileDirectory)\..\content/NLog.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    -->
-    <None Include="$(MSBuildThisFileDirectory)..\content\Debug\Flutnet.Interop.resources\**" CopyToOutputDirectory="PreserveNewest" />
+  <!-- The following two groups must be excluded if we decide not to pack .xcframeworks -->
+  <ItemGroup Condition="'$(Configuration)' == 'Debug' And '$(OutputType)' == 'Exe'">
+    <NativeReference Include="$(MSBuildThisFileDirectory)../content/Debug/Flutter.xcframework">
+      <Kind>Framework</Kind>
+      <SmartLink>False</SmartLink>
+    </NativeReference>
   </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <!--
-    <Content Include="$(MSBuildThisFileDirectory)\..\content/NLog.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    -->
-    <None Include="$(MSBuildThisFileDirectory)..\content\Release\Flutnet.Interop.resources\**" CopyToOutputDirectory="PreserveNewest" />
+  <ItemGroup Condition="'$(Configuration)' == 'Release' And '$(OutputType)' == 'Exe'">
+    <NativeReference Include="$(MSBuildThisFileDirectory)../content/Release/Flutter.xcframework">
+      <Kind>Framework</Kind>
+      <SmartLink>False</SmartLink>
+    </NativeReference>
   </ItemGroup>
 </Project>

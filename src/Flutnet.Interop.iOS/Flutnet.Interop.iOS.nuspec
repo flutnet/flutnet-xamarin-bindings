@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Flutnet.Interop.iOS</id>
-    <version>2.0.3</version>
+    <version>2.0.4</version>
     <title>Flutnet.Interop.iOS</title>
     <authors>Novagem Solutions S.r.l.</authors>
     <owners></owners>
@@ -10,7 +10,7 @@
     <license type="file">LICENSE.md</license>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Xamarin.iOS bindings for Flutter engine's iOS embedding APIs</description>
-    <releaseNotes>First release for Flutter 2.0.3 (stable)</releaseNotes>
+    <releaseNotes>First release for Flutter 2.0.4 (stable)</releaseNotes>
     <copyright>Copyright © Novagem Solutions Srl 2020-2021</copyright>
     <tags>Flutnet Xamarin iOS Xamarin.iOS Flutter</tags>
     <icon>images\icon.png</icon>
@@ -25,9 +25,10 @@
     <file src="Flutnet.Interop.iOS.targets" target="build/Flutnet.Interop.iOS.targets" />
     <file src="../../Flutnet - License Agreement.md" target="LICENSE.md" />
     <file src="../../assets/images/flutnet_logo_128x128_trasp.png" target="images/icon.png" />
-    <file src="bin/ReleaseWithDebugNativeRef/Flutnet.Interop.resources/**/*.*" target="content/Debug/Flutnet.Interop.resources" />
-    <file src="bin/ReleaseWithDebugNativeRef/Flutnet.Interop.resources/**/Flutter" target="content/Debug/Flutnet.Interop.resources" />
-    <file src="bin/Release/Flutnet.Interop.resources/**/*.*" target="content/Release/Flutnet.Interop.resources" />
-    <file src="bin/Release/Flutnet.Interop.resources/**/Flutter" target="content/Release/Flutnet.Interop.resources" />
+    <!-- To pack or not to pack (the .xcframeworks), that's the question -->
+    <file src="bin/ReleaseWithDebugNativeRef/Flutnet.Interop.resources/**/*.*" target="content/Debug" />
+    <file src="bin/ReleaseWithDebugNativeRef/Flutnet.Interop.resources/**/Flutter" target="content/Debug" />
+    <file src="bin/Release/Flutnet.Interop.resources/**/*.*" target="content/Release" />
+    <file src="bin/Release/Flutnet.Interop.resources/**/Flutter" target="content/Release" />
   </files>
 </package>

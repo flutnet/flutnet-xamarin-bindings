@@ -71,7 +71,7 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Flutnet.Interop.iOS" Version="2.0.3" />
+    <PackageReference Include="Flutnet.Interop.iOS" Version="2.0.4" />
     <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
   </ItemGroup>
   <ItemGroup>
@@ -155,20 +155,24 @@
       <Kind>Framework</Kind>
       <SmartLink>False</SmartLink>
     </NativeReference>
+    <!--
     <NativeReference Include="../flutter_module/build/ios/framework/Debug/Flutter.xcframework">
       <Kind>Framework</Kind>
       <SmartLink>False</SmartLink>
     </NativeReference>
+    -->
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)'=='Release' ">
     <NativeReference Include="../flutter_module/build/ios/framework/Release/App.xcframework">
       <Kind>Framework</Kind>
       <SmartLink>False</SmartLink>
     </NativeReference>
+    <!--
     <NativeReference Include="../flutter_module/build/ios/framework/Release/Flutter.xcframework">
       <Kind>Framework</Kind>
       <SmartLink>False</SmartLink>
     </NativeReference>
+    -->
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" Condition="Exists('$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets')" />
 </Project>
