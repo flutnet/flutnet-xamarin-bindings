@@ -22,7 +22,7 @@
   </metadata>
   <files>
     <file src="bin/Release/Flutnet.Interop.Java8.dll" target="lib/MonoAndroid/Flutnet.Interop.Java8.dll" />
-    <file src="../../Flutnet - License Agreement.md" target="LICENSE.md" />
+    <file src="../../LICENSE.md" target="LICENSE.md" />
     <file src="../../assets/images/flutnet_logo_128x128_trasp.png" target="images/icon.png" />
   </files>
 </package>

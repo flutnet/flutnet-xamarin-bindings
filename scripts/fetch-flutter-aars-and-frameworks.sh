@@ -1,6 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# set the current working directory of the running script to the folder in which the .sh file is located
-cd $(dirname "$0")
+# Define paths
+SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+TOOLS_DIR=$SCRIPT_DIR/../tools
+ASSETS_DIR=$SCRIPT_DIR/../assets
 
-../tools/FlutterSync/FlutterSync --TargetDirectory ../assets/xamarin-native-references
+"$TOOLS_DIR/FlutterSync/FlutterSync" --TargetDirectory "$ASSETS_DIR/xamarin-native-references"
