@@ -10,8 +10,9 @@ Flutnet is a set of tools and libraries that will make super easy embed Flutter 
 
 Before following all the instructions in the next chapters, you need to have your system property configured. The system needs to have installed 
 - Xamarin Android/iOS
+- (ONLY for Mac) Visual Studio for Mac version 8.9.5 (Xamarin iOS 14.14.2.5)
 - Flutter 2.0.4
-- Configured the Enviroment.
+- Configured the Enviroment
 
 
 For Specific instructions see 
