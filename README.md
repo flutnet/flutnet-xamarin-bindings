@@ -123,7 +123,7 @@ If the build succeeds the nuget packages are correctly generated and everythings
 
 >NOTE: Visual studio know where to find the nuget packages because the information is indicated inside the `samples/NuGet.Config` file.
 
-### Run the project ina device
+### Run the project on a device
 
 After that the last thing to do is to open the `samples/Flutnet.Interop.Samples.sln` in visual studio running the project.
 
