@@ -1,8 +1,8 @@
 # Flutnet Xamarin Bindings
 
-| Flutnet.Interop.Android                                          | Flutnet.Interop.iOS                                          |
-| ---------------------------------------------------------------- | ------------------------------------------------------------ |
-| ![Nuget](https://img.shields.io/nuget/v/Flutnet.Interop.Android) | ![Nuget](https://img.shields.io/nuget/v/Flutnet.Interop.iOS) |
+| Flutnet.Interop.Android                                                                                                     | Flutnet.Interop.iOS                                                                                                 |
+| --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| [![Nuget](https://img.shields.io/nuget/v/Flutnet.Interop.Android)](https://www.nuget.org/packages/Flutnet.Interop.Android/) | [![Nuget](https://img.shields.io/nuget/v/Flutnet.Interop.iOS)](https://www.nuget.org/packages/Flutnet.Interop.iOS/) |
 
 This repository holds the Xamarin bindings for Flutter engine's embedding APIs. These APIs let a Flutter module to be imported into an existing Android or iOS app: please read through the [official Flutter documentation](https://flutter.dev/docs/development/add-to-app) for a deeper look at this feature.
 
@@ -30,7 +30,7 @@ For Specific instructions see
 
 > This guide Refer to Flutter 2.0.4: ensure to install this specific version.
 
-To check if Flutter is correrctly installed run
+To check if Flutter is correctly installed run
 
 ```sh
 flutter doctor -v
