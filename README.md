@@ -1,15 +1,17 @@
-# [Flutnet](https://www.flutnet.com) Xamarin Bindings
+# Flutnet Xamarin Bindings
 
-This repository provides all the code to build your own nuget packages
+| Flutnet.Interop.Android                                          | Flutnet.Interop.iOS                                          |
+| ---------------------------------------------------------------- | ------------------------------------------------------------ |
+| ![Nuget](https://img.shields.io/nuget/v/Flutnet.Interop.Android) | ![Nuget](https://img.shields.io/nuget/v/Flutnet.Interop.iOS) |
 
-- [Flutnet.Interop.iOS](https://www.nuget.org/packages/Flutnet.Interop.iOS/)
-- [Flutnet.Interop.Android](https://www.nuget.org/packages/Flutnet.Interop.Android/) 
- 
-that allow to embed [Flutter](https://flutter.dev/) inside your Xamarin project (Android and iOS only).
+This repository holds the Xamarin bindings for Flutter engine's embedding APIs. These APIs let a Flutter module to be imported into an existing Android or iOS app: please read through the [official Flutter documentation](https://flutter.dev/docs/development/add-to-app) for a deeper look at this feature.
+
+The Xamarin bindings are used to integrate a Flutter module into a Xamarin app. The bindings themselves are published on [NuGet Gallery](https://www.nuget.org/) with the names [Flutnet.Interop.Android](https://www.nuget.org/packages/Flutnet.Interop.Android/) and [Flutnet.Interop.iOS](https://www.nuget.org/packages/Flutnet.Interop.iOS/).
 
 ## What is Flutnet?
 
-Flutnet is a set of tools and libraries that will make super easy embed Flutter (graphical framework) inside a Xamarin application (as a backend layer) to obtain a powerful and native cross platform application. For more detailts see https://www.flutnet.com/.
+Flutnet is a set of tools and libraries that allow you to easily integrate [Flutter](https://flutter.dev/) (UI framework) into a Xamarin project (as a backend layer) thus obtaining a powerful and native cross platform application. For more details please visit https://www.flutnet.com/.
+
 
 ## Setup requirements
 
@@ -132,3 +134,10 @@ If the build succeeds the nuget packages are correctly generated and everythings
 
 After that the last thing to do is to open the `samples/Flutnet.Interop.Samples.sln` in visual studio running the project.
 
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+
+[![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)

@@ -7,7 +7,7 @@
     <authors>Novagem Solutions S.r.l.</authors>
     <owners></owners>
     <projectUrl>https://www.flutnet.com</projectUrl>
-    <license type="file">LICENSE.md</license>
+    <license type="expression">LGPL-3.0-or-later</license>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Xamarin.Android bindings for Android Support Library - lifecycle common for Java 8 Language</description>
     <releaseNotes>First release</releaseNotes>
@@ -22,7 +22,6 @@
   </metadata>
   <files>
     <file src="bin/Release/Flutnet.Interop.Java8.dll" target="lib/MonoAndroid/Flutnet.Interop.Java8.dll" />
-    <file src="../../LICENSE.md" target="LICENSE.md" />
     <file src="../../assets/images/flutnet_logo_128x128_trasp.png" target="images/icon.png" />
   </files>
 </package>

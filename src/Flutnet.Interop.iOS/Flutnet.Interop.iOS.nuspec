@@ -7,7 +7,7 @@
     <authors>Novagem Solutions S.r.l.</authors>
     <owners></owners>
     <projectUrl>https://www.flutnet.com</projectUrl>
-    <license type="file">LICENSE.md</license>
+    <license type="expression">LGPL-3.0-or-later</license>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Xamarin.iOS bindings for Flutter engine's iOS embedding APIs</description>
     <releaseNotes>First release for Flutter 2.0.4 (stable)</releaseNotes>
@@ -23,7 +23,6 @@
     <file src="bin/ReleaseWithDebugNativeRef/Flutnet.Interop.dll" target="lib/Xamarin.iOS10/Debug/Flutnet.Interop.dll" />
     <file src="bin/Release/Flutnet.Interop.dll" target="lib/Xamarin.iOS10/Release/Flutnet.Interop.dll" />
     <file src="Flutnet.Interop.iOS.targets" target="build/Flutnet.Interop.iOS.targets" />
-    <file src="../../LICENSE.md" target="LICENSE.md" />
     <file src="../../assets/images/flutnet_logo_128x128_trasp.png" target="images/icon.png" />
     <!-- To pack or not to pack (the .xcframeworks), that's the question -->
     <file src="bin/ReleaseWithDebugNativeRef/Flutnet.Interop.resources/**/*.*" target="content/Debug" />
