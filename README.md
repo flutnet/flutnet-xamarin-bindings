@@ -1,6 +1,11 @@
 # [Flutnet](https://www.flutnet.com) Xamarin Bindings
 
-This repository provides all the code to build your own nuget packages [Flutnet.Interop.iOS](https://www.nuget.org/packages/Flutnet.Interop.iOS/) and [Flutnet.Interop.Android](https://www.nuget.org/packages/Flutnet.Interop.Android/) that allow to embed [Flutter](https://flutter.dev/) inside your Xamarin project (Android and iOS only).
+This repository provides all the code to build your own nuget packages
+
+- [Flutnet.Interop.iOS](https://www.nuget.org/packages/Flutnet.Interop.iOS/)
+- [Flutnet.Interop.Android](https://www.nuget.org/packages/Flutnet.Interop.Android/) 
+ 
+that allow to embed [Flutter](https://flutter.dev/) inside your Xamarin project (Android and iOS only).
 
 ## What is Flutnet?
 
@@ -32,17 +37,17 @@ flutter doctor -v
 <img src="github_assets/flutter_doctor.png" width="70%">
 
 
-## Build procedure
+## Build procedure :hammer:
 
 The following procedure refer to a **macOS system**, because we need a macOS machine in order to build both Android and iOS. 
 > Using a Windows machine you'll be able to build only the Android nuget package.
 
 The build process will perform in 3 steps:
-1. Fetch Flutter aar* libraries (Android) and frameworks (iOS)
-2. Build src projects
-3. Create the nuget packages
+ 1. [Fetch Flutter aar* libraries (Android) and frameworks (iOS)](#1-fetch-flutter-aar-libraries-android-and-frameworks-ios)
+ 2. [Build src projects](#2-build-src-projects)
+ 3. [Create the nuget packages](#3-create-the-nuget-packages)
 
-### 1. Fetch Flutter aar* libraries (Android) and frameworks (iOS)
+### Fetch Flutter aar* libraries (Android) and frameworks (iOS)
 
 The first step is to retrieve all the necessary libs and frameworks that will be used for both __Flutnet.Interop.iOS__ and __Flutnet.Interop.Android__ binding libraries. 
 
@@ -67,7 +72,7 @@ Libraries and framework will be moved inside the `assets/` folder.
 <img src="github_assets/xamarin-native-references_folder.png" width="70%">
 
 
-### 2. Build src projects
+### Build src projects
 
 The following script will build all the projects inside the solution file `Flutnet.Interop.sln`:
 
@@ -81,7 +86,7 @@ scripts/build-src.sh
 
 When the build process has finished we can generate the corrisponding Nuget packages.
 
-### 3. Create the nuget packages
+### Create the nuget packages
 
 From the projects already builded we now can create the nuget packages. All the packages will be plased inside `artifacts/nuget-packages/` folder.
 
@@ -92,7 +97,7 @@ scripts/pack.sh
 
 <img src="github_assets/script_pack.png" width="70%">
 
-## Run a Flutter Counter app using the NuGet Packages
+## Run a flutter Counter app using the NuGet packages
 
 After building the nuget packages 
 
