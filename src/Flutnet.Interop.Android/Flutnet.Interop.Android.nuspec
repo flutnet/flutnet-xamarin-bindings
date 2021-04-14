@@ -29,7 +29,7 @@
     <file src="bin/Release/Flutnet.Interop.dll" target="lib/MonoAndroid/Release/Flutnet.Interop.dll" />
     <file src="Flutnet.Interop.Android.targets" target="build/Flutnet.Interop.Android.targets" />
     <file src="../../assets/images/flutnet_logo_128x128_trasp.png" target="images/icon.png" />
-    <file src="../../LICENSE.LGPL3.md" target="LICENSE.LGPL3.md" />
-    <file src="../../LICENSE.GPL3.md" target="LICENSE.GPL3.md" />
+    <file src="../../LICENSE.LGPL3" target="LICENSE.LGPL3" />
+    <file src="../../LICENSE.GPL3" target="LICENSE.GPL3" />
   </files>
 </package>
