@@ -10,7 +10,7 @@ The Xamarin bindings are used to integrate a Flutter module into a Xamarin app. 
 
 ## What is Flutnet?
 
-Flutnet is a set of tools and libraries that allow you to create rich and beautiful Xamarin apps using [Flutter](https://flutter.dev/) as UI Layer and .NET as backend. For more details please visit https://www.flutnet.com/.
+Flutnet is a set of tools and libraries that allows you to create rich and beautiful Xamarin apps using [Flutter](https://flutter.dev/) as UI Layer and .NET as backend. For more details please visit https://www.flutnet.com/.
 
 <div style="background-color:white; padding:0%; margin-bottom: 3%;">
 <img src="github_assets/how_flutnet_works_r2.png" width="35%" style="background-color:white; padding:1.2%;" />
