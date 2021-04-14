@@ -49,9 +49,9 @@ The following procedure refer to a **macOS system**, because we need a macOS mac
 > Using a Windows machine you'll be able to build only the Android nuget package.
 
 The build process will perform in 3 steps:
- 1. [Fetch Flutter aar* libraries (Android) and frameworks (iOS)](#1-fetch-flutter-aar-libraries-android-and-frameworks-ios)
- 2. [Build src projects](#2-build-src-projects)
- 3. [Create the nuget packages](#3-create-the-nuget-packages)
+ 1. [Fetch Flutter aar* libraries (Android) and frameworks (iOS)](#fetch-flutter-aar-libraries-android-and-frameworks-ios)
+ 2. [Build src projects](#build-src-projects)
+ 3. [Create the nuget packages](#create-the-nuget-packages)
 
 ### Fetch Flutter aar* libraries (Android) and frameworks (iOS)
 
