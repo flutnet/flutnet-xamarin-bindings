@@ -94,7 +94,7 @@ When the build process has finished we can generate the corrisponding Nuget pack
 
 ### Create the nuget packages
 
-From the projects already builded we now can create the nuget packages. All the packages will be plased inside `artifacts/nuget-packages/` folder.
+From the projects already builded we now can create the nuget packages. All the packages will be placed inside `artifacts/nuget-packages/` folder.
 
 Run
 ```sh
