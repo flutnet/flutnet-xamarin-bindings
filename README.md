@@ -10,17 +10,10 @@ This repository holds the Xamarin bindings for Flutter engine's embedding APIs. 
 
 The Xamarin bindings are used to integrate a Flutter module into a Xamarin app. The bindings themselves are published on [NuGet Gallery](https://www.nuget.org/) with the names [Flutnet.Interop.Android](https://www.nuget.org/packages/Flutnet.Interop.Android/) and [Flutnet.Interop.iOS](https://www.nuget.org/packages/Flutnet.Interop.iOS/).
 
-- [Flutnet Xamarin Bindings](#flutnet-xamarin-bindings)
   - [What is Flutnet?](#what-is-flutnet)
   - [System requirements](#system-requirements)
   - [Building procedure](#building-procedure)
-    - [Fetch Flutter's Android archives and iOS frameworks](#fetch-flutters-android-archives-and-ios-frameworks)
-    - [Build the source projects](#build-the-source-projects)
-    - [Create the NuGet packages](#create-the-nuget-packages)
   - [Sample app](#sample-app)
-    - [Overview](#overview)
-    - [Preliminary steps](#preliminary-steps)
-    - [Run the sample](#run-the-sample)
   - [Contributing](#contributing)
   - [License](#license)
 
