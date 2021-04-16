@@ -1,5 +1,7 @@
 # Flutnet Xamarin Bindings
 
+[![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
+
 | Flutnet.Interop.Android                                                                                                     | Flutnet.Interop.iOS                                                                                                 |
 | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
 | [![Nuget](https://img.shields.io/nuget/v/Flutnet.Interop.Android)](https://www.nuget.org/packages/Flutnet.Interop.Android/) | [![Nuget](https://img.shields.io/nuget/v/Flutnet.Interop.iOS)](https://www.nuget.org/packages/Flutnet.Interop.iOS/) |
@@ -7,6 +9,20 @@
 This repository holds the Xamarin bindings for Flutter engine's embedding APIs. These APIs let a Flutter module to be imported into an existing Android or iOS app: please read through the [official Flutter documentation](https://flutter.dev/docs/development/add-to-app) for a deeper look at this feature.
 
 The Xamarin bindings are used to integrate a Flutter module into a Xamarin app. The bindings themselves are published on [NuGet Gallery](https://www.nuget.org/) with the names [Flutnet.Interop.Android](https://www.nuget.org/packages/Flutnet.Interop.Android/) and [Flutnet.Interop.iOS](https://www.nuget.org/packages/Flutnet.Interop.iOS/).
+
+- [Flutnet Xamarin Bindings](#flutnet-xamarin-bindings)
+  - [What is Flutnet?](#what-is-flutnet)
+  - [System requirements](#system-requirements)
+  - [Building procedure](#building-procedure)
+    - [Fetch Flutter's Android archives and iOS frameworks](#fetch-flutters-android-archives-and-ios-frameworks)
+    - [Build the source projects](#build-the-source-projects)
+    - [Create the NuGet packages](#create-the-nuget-packages)
+  - [Sample app](#sample-app)
+    - [Overview](#overview)
+    - [Preliminary steps](#preliminary-steps)
+    - [Run the sample](#run-the-sample)
+  - [Contributing](#contributing)
+  - [License](#license)
 
 ## What is Flutnet?
 
@@ -17,24 +33,20 @@ Flutnet is a set of tools and libraries that allows you to create rich and beaut
 <img src="github_assets/flutter_embedding.png" width="17.5%" style="background-color:white; padding:0px;" />
 </div>
 
-## Setup requirements
+## System requirements
 
-Before following all the instructions in the next chapters, you need to have your system property configured. The system needs to have installed 
-- Xamarin Android/iOS
-- (ONLY for Mac) Visual Studio for Mac version 8.9.5 (Xamarin iOS 14.14.2.5)
-- Flutter 2.0.4
-- Configured the Enviroment
+To build and run the source projects and the sample apps, you need a **macOS** properly configured
+ with:
+- Xamarin (Visual Studio 2019 for Mac version 8.9.5 or later)
+- Xcode with Command Line Tools (version 12.3 or later)
+- Flutter SDK (version 2.0.4 or later)
 
+For specific instructions on how to install and configure Flutter please refer to: 
 
-For Specific instructions see 
+- The official [Flutter installation guide](https://flutter.dev/docs/get-started/install/macos)
+- The [Flutnet documentation page](https://www.flutnet.com/Documentation/Getting-Started/Install-on-macOS) (you can skip the last section _Installing Flutnet SDK_)
 
-- [Windows Enviroment Setup](https://www.flutnet.com/Documentation/Getting-Started/Install-on-Windows) (Skip the section **Installing Flutnet SDK**)
-- [macOS Enviroment Setup](https://www.flutnet.com/Documentation/Getting-Started/Install-on-macOS) (Skip the section **Installing Flutnet SDK**)
-- Ensure to install [Flutter 2.0.4](https://flutter.dev/docs/get-started/install)
-
-> This guide Refer to Flutter 2.0.4: ensure to install this specific version.
-
-To check if Flutter is correctly installed run
+To check if Flutter is correctly installed run:
 
 ```sh
 flutter doctor -v
@@ -43,28 +55,15 @@ flutter doctor -v
 <img src="github_assets/flutter_doctor.png" width="70%">
 
 
-## Build procedure :hammer:
+## Building procedure
 
-The following procedure refer to a **macOS system**, because we need a macOS machine in order to build both Android and iOS. 
-> Using a Windows machine you'll be able to build only the Android nuget package.
+ 1. [Fetch Flutter's Android archives and iOS frameworks](#fetch-flutters-android-archives-and-ios-frameworks)
+ 2. [Build the source projects](#build-the-source-projects)
+ 3. [Create the NuGet packages](#create-the-nuget-packages)
 
-The build process will perform in 3 steps:
- 1. [Fetch Flutter aar* libraries (Android) and frameworks (iOS)](#fetch-flutter-aar-libraries-android-and-frameworks-ios)
- 2. [Build src projects](#build-src-projects)
- 3. [Create the nuget packages](#create-the-nuget-packages)
+### Fetch Flutter's Android archives and iOS frameworks
 
-### Fetch Flutter aar* libraries (Android) and frameworks (iOS)
-
-The first step is to retrieve all the necessary libs and frameworks that will be used for both __Flutnet.Interop.iOS__ and __Flutnet.Interop.Android__ binding libraries. 
-
-The first script the we'll execute, rely on the `tool/FlutterSync/FlutterSync` command: its goal is to create a [Flutter Module project](https://flutter.dev/docs/development/add-to-app) and retrieve all the libraries used into the Binding projects.
-
-> NOTE: if you want to customize the `FlutterSync` tool, just edit the source code from `toolsSrc/FlutterSync.sln` and rebuild the project running
-> ```sh
-> scripts/rebuild-and-update-tools.sh
-> ```
-
-Run
+The first step is to retrieve and configure all the necessary native libs for Android and iOS that will be embedded into Xamarin binding libraries. You need to run the following script:
 
 ```sh
 scripts/fetch-flutter-aars-and-frameworks.sh
@@ -72,15 +71,21 @@ scripts/fetch-flutter-aars-and-frameworks.sh
 
 <img src="github_assets/fetch_flutter.png" width="70%">
 
+This script will call the custom tool `tools/FlutterSync/FlutterSync` whose tasks are:
+- Create a temporary Flutter module
+- Build the module to produce the .aars and .xcframeworks for Flutter engine's embedding APIs
+- Manipulate the output in a way that all the necessary native libs can be properly referenced and embedded into the Xamarin bindings projects
 
-Libraries and framework will be moved inside the `assets/` folder.
+The archives and frameworks will be placed into `assets/xamarin-native-references/` folder. Given their size, they have been excluded from version control.
 
-<img src="github_assets/xamarin-native-references_folder.png" width="70%">
+> `FlutterSync` is a Console application targeting .NET Core 3.1. You can customize or improve the tool by working on  `toolsSrc/FlutterSync.sln` solution. Once you've finished, just run the following script to update the executables under  `tools/` folder:
+> ```sh
+> scripts/rebuild-and-update-tools.sh
+> ```
 
+### Build the source projects
 
-### Build src projects
-
-The following script will build all the projects inside the solution file `Flutnet.Interop.sln`:
+The following script will build all the projects within the `Flutnet.Interop.sln` solution, restoring all the required NuGet packages:
 
 - `src/Flutnet.Interop.Android`
 - `src/Flutnet.Interop.iOS`
@@ -90,53 +95,68 @@ The following script will build all the projects inside the solution file `Flutn
 scripts/build-src.sh
 ```
 
-When the build process has finished we can generate the corrisponding Nuget packages.
+>You can always compile the .sln file in a IDE. Please make sure to build both `ReleaseWithDebugNativeRef` and `Release` configurations before moving on to the next step.
 
-### Create the nuget packages
+### Create the NuGet packages
 
-From the projects already builded we now can create the nuget packages. All the packages will be placed inside `artifacts/nuget-packages/` folder.
+Once the Xamarin bindings have been built, run the following script to create the corresponding NuGet packages:
 
-Run
 ```sh
 scripts/pack.sh
 ```
 
+All the packages will be placed into `artifacts/nuget-packages/` folder.
+
 <img src="github_assets/script_pack.png" width="70%">
 
-## Run a flutter Counter app using the NuGet packages
+**NOTE**
 
-After building the nuget packages 
+The version of `Flutnet.Interop.Android` and `Flutnet.Interop.iOS` packages should match the version of Flutter SDK these libraries are referencing/embedding. 
 
-- Flutnet.Interop.Android.2.0.4.nupkg
-- Flutnet.Interop.iOS.2.0.4.nupkg
-- Flutnet.Interop.Android.2.0.4.nupkg
-  
-we can now execute a basic sample project, where the Xamarin Application will run having inside itself the Flutter Module project `samples/flutter_module`.
+If you intend to generate bindings on a newer version of Flutter (i.e. 2.0.5), please update the `.nuspec` files accordingly (i.e. `<version>2.0.5</version>`). 
 
-### Clean the Nuget Cache
+On the other hand, if you need to fix the existing bindings, please update the `.nuspec` files by specifying/incrementing the 4th version component (i.e. `<version>2.0.4.1</version>`, `<version>2.0.4.2</version>` etc).
 
-To ensure using the latest Nuget Packages we can clean the NuGet cache.
+## Sample app
+
+### Overview
+
+Folder `samples/` contains a basic example that illustrates how to integrate a Flutter module into a Xamarin.Android and a Xamarin.iOS app through the Flutnet.Interop bindings libraries. In this folder you can find:
+
+- A basic Flutter module (`flutter_module/`) created with command:
+
+```sh
+flutter create -t module flutter_module
+```
+
+- A Visual Studio solution (`Flutnet.Interop.Samples.sln`) containing: 
+  - A Xamarin.Android app (`Flutnet.Interop.Sample.Android`)
+  - A Xamarin.iOS app (`Flutnet.Interop.Sample.iOS`)
+  - A further Xamarin.Android bindings library (`Flutnet.ModuleInterop.Android`) needed to embed the AAR representing the UI of the Flutter module
+
+### Preliminary steps
+
+To ensure we're using the latest NuGet Packages, we can clean the NuGet cache first by running:
 
 ```sh
 scripts/clear-nuget-cache.sh
 ```
+Now we can run:
 
-### Build the sample project
-
-The first step to run the sample project is to build the flutter module project in the `samples/flutter_module` folder.
-
-Run
 ```sh
 scripts/build-samples.sh
 ```
 
-If the build succeeds the nuget packages are correctly generated and everythings works as expected.
+This script will perform the following tasks:
+- Build the Flutter module
+- Restore all the required NuGet packages for the sample solution
+- Build all the projects within the solution
 
->NOTE: Visual studio know where to find the nuget packages because the information is indicated inside the `samples/NuGet.Config` file.
+### Run the sample
 
-### Run the project on a device
+Once the script has completed, you can open the `samples/Flutnet.Interop.Samples.sln` solution in your IDE and start debugging both the Xamarin.Android and the Xamarin.iOS app in a simulator or on a real device.
 
-After that the last thing to do is to open the `samples/Flutnet.Interop.Samples.sln` in visual studio running the project.
+>The projects in this repository reference by default the _Flutnet.Interop_ packages that are published on NuGet Gallery. If you want the sample to reference your own bindings (i.e. local NuGet packages that you built on your own), please edit the `samples/NuGet.Config` file and/or the `<PackageReference>` inside each `.csproj` accordingly.
 
 ## Contributing
 
@@ -144,4 +164,4 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## License
 
-[![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
+This project is licensed under the LPGL v3 license (https://www.gnu.org/licenses/lgpl-3.0.html)
