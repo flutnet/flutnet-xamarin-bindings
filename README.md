@@ -106,9 +106,9 @@ All the packages will be placed into `artifacts/nuget-packages/` folder.
 
 The version of `Flutnet.Interop.Android` and `Flutnet.Interop.iOS` packages should match the version of Flutter SDK these libraries are referencing/embedding. 
 
-If you intend to generate bindings on a newer version of Flutter (i.e. 2.0.5), please update the `.nuspec` files accordingly (i.e. `<version>2.0.5</version>`). 
+If you intend to generate bindings on a newer version of Flutter (i.e. 2.0.6), please update the `.nuspec` files accordingly (i.e. `<version>2.0.6</version>`). 
 
-On the other hand, if you need to fix the existing bindings, please update the `.nuspec` files by specifying/incrementing the 4th version component (i.e. `<version>2.0.4.1</version>`, `<version>2.0.4.2</version>` etc).
+On the other hand, if you need to fix the existing bindings, please update the `.nuspec` files by specifying/incrementing the 4th version component (i.e. `<version>2.0.5.1</version>`, `<version>2.0.5.2</version>` etc).
 
 ## Sample app
 
@@ -134,6 +134,7 @@ To ensure we're using the latest NuGet Packages, we can clean the NuGet cache fi
 ```sh
 scripts/clear-nuget-cache.sh
 ```
+
 Now we can run:
 
 ```sh
