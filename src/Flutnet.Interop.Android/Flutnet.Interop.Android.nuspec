@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Flutnet.Interop.Android</id>
-    <version>2.0.4</version>
+    <version>2.0.5</version>
     <title>Flutnet.Interop.Android</title>
     <authors>Novagem Solutions S.r.l.</authors>
     <owners></owners>
@@ -11,7 +11,7 @@
     <license type="expression">LGPL-3.0-or-later</license>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Xamarin.Android bindings for Flutter engine's Android embedding APIs</description>
-    <releaseNotes>First release for Flutter 2.0.4 (stable)</releaseNotes>
+    <releaseNotes>First release for Flutter 2.0.5 (stable)</releaseNotes>
     <copyright>Copyright © Novagem Solutions Srl 2020-2021</copyright>
     <tags>Flutnet Xamarin Android Xamarin.Android Flutter</tags>
     <icon>images\icon.png</icon>
