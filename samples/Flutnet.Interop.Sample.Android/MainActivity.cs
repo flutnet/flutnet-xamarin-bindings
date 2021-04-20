@@ -24,9 +24,9 @@ namespace Flutnet.Interop.Sample
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            App.Init(this);
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            App.Init(this);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

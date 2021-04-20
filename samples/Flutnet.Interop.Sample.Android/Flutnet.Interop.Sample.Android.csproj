@@ -107,7 +107,7 @@
     <PackageReference Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="2.2.0.3" />
     <PackageReference Include="Xamarin.AndroidX.Browser" Version="1.2.0.2" />
     <PackageReference Include="Xamarin.Google.Android.Material" Version="1.1.0.5" />
-    <PackageReference Include="Flutnet.Interop.Android" Version="2.0.4" />
+    <PackageReference Include="Flutnet.Interop.Android" Version="2.0.5" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Flutnet.ModuleInterop.Android\Flutnet.ModuleInterop.Android.csproj">
