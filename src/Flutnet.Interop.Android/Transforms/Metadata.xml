@@ -62,4 +62,5 @@
   <attr path="/api/package[@name='io.flutter.plugin.common']/interface[@name='EventChannel.StreamHandler']/method[@name='onListen']/parameter[@name='p1']" name="name">events</attr>
 
   <remove-node path="/api/package[@name='io.flutter.plugin.mouse']/interface[@name='MouseCursorPlugin.MouseCursorViewDelegate']/method[@name='setPointerIcon']" />
+  <remove-node path="/api/package[@name='io.flutter.embedding.android']/class[@name='KeyboardManager']"/>
 </metadata>
